@@ -86,11 +86,7 @@ This was read as a signal to use the framework's own built-in capabilities rathe
 
 A network banner was added that detects when the user's connection is lost and displays a visible warning. It disappears automatically when connectivity is restored.
 
-### Server and client responsibilities
 
-Data fetching happens on the server — no client-side API calls are made for reading posts. Only the components that genuinely need browser interactivity run on the client: the author filter dropdown and the delete button. Everything else is server-rendered, which minimises the JavaScript sent to the browser — a meaningful concern for users on slow connections.
-
-Mutations use Next.js Server Actions rather than traditional API routes. The delete action runs server-side and updates the cache on success.
 
 ### Delete confirmation and error handling
 

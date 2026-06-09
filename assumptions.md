@@ -68,6 +68,16 @@ Prisma with SQLite was used as suggested by the challenge. The seed script fetch
 
 The database file is not committed to the repository. The evaluator runs the migration and seed commands to create and populate it locally. The connection details are in the committed file as explicitly required by the challenge.
 
+### Why there are no traditional API endpoints
+
+The brief mentions "listing posts from an API" and "when the endpoint fails" — which naturally suggests a traditional REST API with routes like `GET /api/posts` and `DELETE /api/posts/:id`. This was a deliberate decision point.
+
+The brief also says Next.js is "a production-ready framework" that "provides a lot of functionality for developers" — and this is where the official Next.js documentation becomes relevant. The App Router documentation explicitly states that when using the App Router, Server Components and Route Handlers replace traditional API routes. The recommended default is to fetch data in Server Components and handle mutations with Server Actions, adding Route Handlers only when external access is needed.
+
+This app has no external clients. The only consumer of the data is the Next.js frontend itself. Building a REST API layer on top of Server Components would mean adding an HTTP round trip that serves no purpose — the browser would fetch the page, then immediately make another request to get the data that the server already had.
+
+The outcome is identical to what the brief describes: posts are fetched from a data source that can fail, the filter works, deletions work, and every failure at every layer is shown to the user. The implementation follows the framework's own recommended patterns rather than a traditional approach the framework itself has moved away from.
+
 ### Bad network handling
 
 The challenge states that users travel to places with bad or unstable internet connections and asks for features to improve their experience. It also hints that Next.js is "a production-ready framework" that "provides a lot of functionality for developers."
